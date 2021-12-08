@@ -5,17 +5,26 @@
   "main": "index.js",
   "scripts": {},
   "bin": {
-    "bago": "./index.js"
+    "bago": "index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "configstore": "^6.0.0",
-    "inquirer": "^8.2.0"
+    "inquirer": "^8.2.0",
+    "rxjs": "^7.4.0"
   },
   "directories": {
     "lib": "lib"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanpablo-is/bago-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/juanpablo-is/bago-cli/issues"
+  },
+  "homepage": "https://github.com/juanpablo-is/bago-cli#readme"
 }

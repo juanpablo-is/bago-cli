@@ -1,0 +1,82 @@
+{
+  "value": "@bago.node-only-backend",
+  "name": "NodeJS only backend",
+  "framework": "node",
+  "author": "@juanpablo-is",
+  "mapping": [
+    {
+      "name": "config",
+      "type": "folder",
+      "children": [
+        {
+          "name": "config.js",
+          "type": "file",
+          "description": "// "
+        }
+      ]
+    },
+    {
+      "name": "controllers",
+      "type": "folder",
+      "children": [
+        {
+          "name": "controllers.js",
+          "type": "file",
+          "description": "// "
+        }
+      ]
+    },
+    {
+      "name": "middlewares",
+      "type": "folder",
+      "children": [
+        {
+          "name": "middlewares.js",
+          "type": "file",
+          "description": "// "
+        }
+      ]
+    },
+    {
+      "name": "routes",
+      "type": "folder",
+      "children": [
+        {
+          "name": "routes.js",
+          "type": "file",
+          "description": "// "
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "folder",
+      "children": [
+        {
+          "name": "utils.js",
+          "type": "file",
+          "description": "// "
+        }
+      ]
+    },
+    {
+      "name": "models",
+      "type": "folder",
+      "children": [
+        {
+          "name": "People.js",
+          "type": "file",
+          "description": "// "
+        }
+      ]
+    }
+  ],
+  "packages": [
+    "mongoose",
+    {
+      "value": "express",
+      "name": "Express"
+    }
+  ],
+  "commands": []
+}
