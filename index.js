@@ -1,60 +1,51 @@
 #!/usr/bin/env node
 
-const inquirer = require('inquirer');
-const { Subject } = require('rxjs');
+'use strict';
 
-const { CreateStructure } = require('./lib/createStructure');
-const { questions } = require('./lib/questions');
+const commander = require('commander');
+const chalk = require('chalk');
 
-class Questions {
-  config = {};
-  prompts = new Subject();
+const { name, version } = require('./package.json');
+const { ARGUMENT_CREATE_APP } = require('./lib/helpers/Utils');
 
-  execute() {
-    inquirer.prompt(this.prompts).ui.process.subscribe({
-      next: (data) => {
-        const { name, answer } = data;
-        this.config[name] = answer;
+const CLI = require('./lib/cli');
+const questions = require('./lib/questions');
+const { list } = require('./lib/options');
 
-        let item = questions.shift();
-        if (!item) {
-          return this.prompts.complete();
-        }
+let projectName;
 
-        // Func 'complete' to validate and determinate if the CLI complete.
-        if (item.complete) {
-          const complete = item.complete(this.config);
+const init = () => {
+  const program = new commander.Command(name)
+    .version(version)
+    .arguments(ARGUMENT_CREATE_APP)
+    .usage(`${chalk.blue(ARGUMENT_CREATE_APP)} [options]`)
+    .action(name => {
+      projectName = name;
+    })
+    .option('--list', 'Print list preload projects.')
+    .allowUnknownOption()
+    .parse(process.argv);
 
-          if (complete) {
-            return this.prompts.complete();
-          }
-        }
+  executeOptions(program);
+  executeCLI();
+};
 
-        // Execute func 'when' to prevent stop CLI.
-        if (item.when && !item.when(this.config)) {
-          item = questions.shift();
+const executeCLI = () => {
+  const questionCLI = new CLI();
 
-          if (!item) {
-            return this.prompts.complete();
-          }
-        }
+  if (typeof projectName !== 'undefined') {
+    questionCLI.preName(projectName);
 
-        this.prompts.next(item);
-      },
-      error: null,
-      complete: async () => {
-        try {
-          const structure = new CreateStructure(this.config);
-          await structure.createStructure();
-        } catch (e) {
-          inquirer.prompt(this.prompts).ui.process.unsubscribe();
-        }
-      },
-    });
-
-    // Process the first questions to subscribe to prompt.
-    this.prompts.next(questions.shift());
+    questions.shift();
   }
-}
 
-new Questions().execute();
+  questionCLI.execute(questions);
+};
+
+const executeOptions = (program) => {
+  if (program.list) {
+    list();
+  }
+};
+
+init();

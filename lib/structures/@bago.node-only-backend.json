@@ -3,6 +3,7 @@
   "name": "NodeJS only backend",
   "framework": "node",
   "author": "@juanpablo-is",
+  "more": "url",
   "mapping": [
     {
       "name": "config",
