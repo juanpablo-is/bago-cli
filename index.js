@@ -36,10 +36,21 @@ const executeCLI = () => {
   if (typeof projectName !== 'undefined') {
     questionCLI.preName(projectName);
 
-    questions.shift();
+    const questionName = questions.shift();
+
+    return questionName.validate(projectName)
+      .then(validateName => {
+        if (validateName !== true) {
+          console.log('The folder is not empty, delete the contents of the folder or enter another name.');
+          process.exit(0);
+        }
+
+        questionCLI.execute(questions);
+      });
   }
 
   questionCLI.execute(questions);
+
 };
 
 const executeOptions = (program) => {
